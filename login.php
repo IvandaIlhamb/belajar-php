@@ -21,6 +21,7 @@
                 <div class="col-md-6 right">
                     <div class="input-box">
                         <header>Halaman Login</header>
+                        <form action="dashboard.php">
                         <div class="input-field">
                             <input type="text" class="input" id="email" required autocomplete="off">
                             <label for="email">Email</label>
@@ -33,8 +34,9 @@
                             <input type="submit" class="submit" id="email" value="Sign Up">
                         </div>
                         <div class="signin">
-                            <span>Belum memiliki akun? <a href="#">Sign In here</a></span>
+                            <span>Anda belum memiliki akun? <a href="#">Sign In here</a></span>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
