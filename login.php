@@ -1,3 +1,39 @@
+<?php
+$error_message = ""; // Initialize the error message variable
+
+// Mock authentication function (replace this with your actual logic)
+function authenticateUser($email, $password) {
+    // Example: Check if email and password match a user in the database
+    $validUserEmail = 'user@example.com';
+    $validPassword = 'password123';
+
+    if ($email === $validUserEmail && $password === $validPassword) {
+        return true; // Authentication successful
+    } else {
+        return false; // Authentication failed
+    }
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get user input
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+
+    // Perform user authentication
+    if (authenticateUser($email, $password)) {
+        // If authentication is successful, redirect to dashboard.php
+        header("Location: dashboard.php");
+        exit();
+    } else {
+        // If authentication fails, set an error message to display to the user
+        $error_message = "Email dan password salah";
+    }
+}
+?>
+
+<!-- Rest of your HTML code remains unchanged -->
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,21 +57,30 @@
                 <div class="col-md-6 right">
                     <div class="input-box">
                         <header>Halaman Login</header>
-                        <form action="dashboard.php">
-                        <div class="input-field">
-                            <input type="text" class="input" id="email" required autocomplete="off">
-                            <label for="email">Email</label>
-                        </div>
-                        <div class="input-field">
-                            <input type="password" class="input" id="password" required>
-                            <label for="password">Password</label>
-                        </div>
-                        <div class="input-field">
-                            <input type="submit" class="submit" id="email" value="Sign Up">
-                        </div>
-                        <div class="signin">
-                            <span>Anda belum memiliki akun? <a href="#">Sign In here</a></span>
-                        </div>
+                        <form method="POST" action="login.php">
+                            <div class="input-field">
+                                <input type="text" class="input" id="email" name="email" required autocomplete="off">
+                                <label for="email">Email</label>
+                            </div>
+                            <div class="input-field">
+                                <input type="password" class="input" id="password" name="password" required>
+                                <label for="password">Password</label>
+                            </div>
+                            <div class="input-field">
+                                <input type="submit" class="submit" value="Sign Up">
+                            </div>
+                            <div class="signin">
+                                <span>Anda belum memiliki akun? <a href="#">Sign In here</a></span>
+                            </div>
+                            <div class="error">
+                            <?php
+                                // Display error message if authentication fails
+                                if (!empty($error_message)) {
+                                    echo '<div class="error-message">' . $error_message . '</div>';
+                                }
+                            ?>
+                            </div>
+  
                         </form>
                     </div>
                 </div>
